@@ -1,17 +1,16 @@
-#ifndef PLAYER_LAYOYT_H
-#define PLAYER_LAYOYT_H
+#ifndef ALBUM_LAYOUT_H
+#define ALBUM_LAYOUT_H
 
-#include <iostream>
 #include <QLayout>
 
 using namespace std;
 
-class PlayerLayout : public QLayout
-{
+class AlbumLayout : public QLayout {
 public:
-    PlayerLayout() : QLayout() {}
-    ~PlayerLayout();
+    AlbumLayout();
+    ~AlbumLayout();
 
+    // standard functions for a QLayout
     void setGeometry(const QRect &rect);
 
     int count() const;
@@ -25,4 +24,4 @@ private:
     QList<QLayoutItem*> list_;
 };
 
-#endif // PLAYER_LAYOYT_H
+#endif // ALBUM_LAYOUT_H

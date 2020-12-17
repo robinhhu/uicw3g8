@@ -1,4 +1,4 @@
-QT += core gui widgets multimedia multimediawidgets
+QT       += core gui widgets multimedia multimediawidgets
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -16,13 +16,27 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    album_layout.cpp \
+    album_widget.cpp \
+    control_bar.cpp \
     main.cpp \
-    player.cpp \
-    video_info.cpp
+    menu_bar.cpp \
+    player_widget.cpp \
+    the_menu.cpp \
+    the_player.cpp \
+    video_info.cpp \
+    window.cpp
 
 HEADERS += \
-    player.h \
-    video_info.h
+    album_layout.h \
+    album_widget.h \
+    control_bar.h \
+    menu_bar.h \
+    player_widget.h \
+    the_menu.h \
+    the_player.h \
+    video_info.h \
+    window.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
