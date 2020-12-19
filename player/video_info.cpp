@@ -5,10 +5,12 @@
 
 VideoInfo::VideoInfo(QUrl url)
 {
-    this->url = url;
     QFileInfo fileInfo(url.toString());
+    this->url = url;
     name = fileInfo.fileName();
     icon = QIcon(fileInfo.path() + "/" + fileInfo.baseName() + ".png");
+    labels = QSet<QString>();
+    labels.insert(name);
 }
 
 VideoInfo::~VideoInfo()
@@ -34,7 +36,25 @@ QSet<QString> VideoInfo::getLabels() const
     return labels;
 }
 
-void VideoInfo::addLabel(QString label)
+bool VideoInfo::matched(QStringList infos)
 {
-    labels.insert(label);
+    for(QString info : infos)
+    {
+        for(QString label : labels)
+        {
+            if(label.contains(info))
+            {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+void VideoInfo::addLabels(QStringList newLabels)
+{
+    for(QString l : newLabels)
+    {
+        this->labels.insert(l);
+    }
 }

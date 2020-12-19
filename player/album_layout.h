@@ -2,6 +2,7 @@
 #define ALBUM_LAYOUT_H
 
 #include <QLayout>
+#include <QScrollArea>
 
 using namespace std;
 
@@ -18,7 +19,6 @@ public:
     QLayoutItem *takeAt(int);
     void addItem(QLayoutItem *item);
     QSize sizeHint() const;
-    QSize minimumSize() const;
 
 private:
     QList<QLayoutItem*> list_;

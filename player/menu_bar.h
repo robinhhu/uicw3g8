@@ -22,7 +22,7 @@ private:
 
     QMap<QString, QIcon> *icons;
 
-    QPushButton *upload;
+    QPushButton *uploadButton;
     QPushButton *toPlayButton;
 
     void setButton(QPushButton *button, QString name);
@@ -31,9 +31,11 @@ private:
     void addConnect();
 
 private slots:
+    void uploadButtonClicked();
     void toPlayButtonClicked();
 
 signals:
+    void upload(QStringList files);
     void toPlay();
 };
 

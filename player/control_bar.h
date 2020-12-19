@@ -18,7 +18,7 @@ public:
     ControlBar(QMap<QString, QIcon> *icons, QWidget* parent=nullptr);
     ~ControlBar();
 
-    void setMediaList(QVector<VideoInfo> *list);
+    void setMediaList(QVector<VideoInfo*> *list);
 
 private:
     QHBoxLayout *layout;
@@ -48,7 +48,7 @@ private:
     QPushButton *forwardButton;
 
     int currentMedia;
-    QVector<VideoInfo> *mediaList;
+    QVector<VideoInfo*> *mediaList;
 
     bool isHiddenList;
     QPushButton *listButton;
@@ -60,6 +60,7 @@ private:
 
 public slots:
     void playFinishedAction();
+    void listButtonClickedSlot(int index);
 
 private slots:
     void menuButtonClicked();
@@ -82,7 +83,7 @@ signals:
     void speedChanged(double newSpeed);
     void volumeChanged(int newVolume);
     void hideList();
-    void displayList();
+    void showList();
 };
 
 #endif // CONTROL_BAR_H

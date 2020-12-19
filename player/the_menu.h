@@ -2,6 +2,8 @@
 #define THE_MENU_H
 
 #include "album_widget.h"
+#include "filter_widget.h"
+#include "info_bar.h"
 #include "menu_bar.h"
 #include "video_info.h"
 
@@ -19,16 +21,23 @@ public:
 private:
     QVBoxLayout *layout;
 
+    FilterWidget *filter;
     AlbumWidget *album;
     MenuBar *menuBar;
+    InfoBar *infoBar;
 
     void addConnect();
 
 private slots:
+    void showMenuBar();
+    void showInfoBar();
+
     void toPlaySlot();
+    void videoClicked(QVector<VideoInfo*> *video);
+    void toPlayOneSlot(QVector<VideoInfo*> *video);
 
 signals:
-    void playListChanged(QVector<VideoInfo> *list);
+    void playListChanged(QVector<VideoInfo*> *list);
 };
 
 #endif // THE_MENU_H

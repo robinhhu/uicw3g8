@@ -19,7 +19,7 @@ Window::Window()
 
     addConnect();
 
-    setMinimumSize(720, 480);
+    setMinimumSize(1080, 720);
 
     showMenu();
 }
@@ -45,9 +45,9 @@ QMap<QString, QIcon>* Window::readIcons(QString loc)
 void Window::addConnect()
 {
     connect(thePlayer, SIGNAL(backToMenu()), this, SLOT(showMenu()));
-    connect(theMenu, SIGNAL(playListChanged(QVector<VideoInfo>*)), this, SLOT(showPlayer()));
+    connect(theMenu, SIGNAL(playListChanged(QVector<VideoInfo*>*)), this, SLOT(showPlayer()));
 
-    connect(theMenu, SIGNAL(playListChanged(QVector<VideoInfo>*)), thePlayer, SLOT(setMediaList(QVector<VideoInfo>*)));
+    connect(theMenu, SIGNAL(playListChanged(QVector<VideoInfo*>*)), thePlayer, SLOT(setMediaList(QVector<VideoInfo*>*)));
 }
 
 void Window::showMenu()

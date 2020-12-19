@@ -36,8 +36,8 @@ void AlbumLayout::setGeometry(const QRect &r)
             }
             else
             {
-                int xLoc = (i % rowNum) * (button->width() + rowSpace) + rowSpace;
-                int yLoc = (i / rowNum) * (button->height() + space) + margins.top();
+                int xLoc = r.x() + (i % rowNum) * (button->width() + rowSpace) + rowSpace;
+                int yLoc = r.y() + (i / rowNum) * (button->height() + space) + margins.top();
                 button->setGeometry(xLoc, yLoc, button->width(), button->height());
             }
         }
@@ -70,11 +70,7 @@ void AlbumLayout::addItem(QLayoutItem *item)
 
 QSize AlbumLayout::sizeHint() const
 {
-    return minimumSize();
+    return QSize(640, 480);
 }
 
-QSize AlbumLayout::minimumSize() const
-{
-    return QSize(50, 1200);
-}
 

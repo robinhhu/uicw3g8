@@ -17,7 +17,9 @@ public:
     QIcon getIcon() const;
     QSet<QString> getLabels() const;
 
-    void addLabel(QString label);
+    bool matched(QStringList infos);
+
+    void addLabels(QStringList newLabels);
 
 private:
     QUrl url;

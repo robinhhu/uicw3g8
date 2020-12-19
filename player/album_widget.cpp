@@ -1,28 +1,45 @@
+#include "album_button.h"
 #include "album_widget.h"
 
 #include <QDir>
 #include <QDirIterator>
+#include <QInputDialog>
+#include <QMessageBox>
+
+#include <QDebug>
 
 AlbumWidget::AlbumWidget()
 {
     layout = new AlbumLayout();
+    layout->setContentsMargins(64, 32, 64, 0);
+    layout->setSpacing(32);
     setLayout(layout);
 
-    allList = new QVector<VideoInfo>();
-    filterList = new QVector<VideoInfo>();
-
-    readList("/Users/zhangzihan/Desktop/player/videos");
-
-    showResults();
+    allList = new QVector<VideoInfo*>();
+    filterList = new QVector<VideoInfo*>();
+    oneVideo = new QVector<VideoInfo*>();
 }
 
 AlbumWidget::~AlbumWidget()
 {
+    for(VideoInfo* v : *allList)
+    {
+        delete v;
+    }
     delete allList;
+    for(VideoInfo* v : *filterList)
+    {
+        delete v;
+    }
     delete filterList;
+    for(VideoInfo* v : *oneVideo)
+    {
+        delete v;
+    }
+    delete oneVideo;
 }
 
-QVector<VideoInfo>* AlbumWidget::getFilterList() const
+QVector<VideoInfo*>* AlbumWidget::getFilterList()
 {
     return filterList;
 }
@@ -38,29 +55,59 @@ void AlbumWidget::showResults()
         }
         delete child;
     }
-    for(VideoInfo i : *filterList)
+    for(VideoInfo* i : *filterList)
     {
-        QPushButton *b = new QPushButton(i.getName());
-        b->setIconSize(QSize(128, 64));
-        b->setIcon(i.getIcon());
-        b->setFixedSize(256, 100);
+        AlbumButton *b = new AlbumButton(i);
         layout->addWidget(b);
+
+        connect(b, SIGNAL(albumButtonClicked(VideoInfo*)), this, SLOT(videoButtonClicked(VideoInfo*)));
     }
 }
 
-
-
-
-void AlbumWidget::readList(QString loc)
+void AlbumWidget::addFiles(QStringList files)
 {
-    QDir dir(loc);
-    QDirIterator it(dir);
-    while (it.hasNext())
+    for(QString file : files)
     {
-        QString file = it.next();
-        if(file.contains(".wmv")){
-            allList->push_back(VideoInfo(QUrl(file)));
+        if(file != nullptr && file != "")
+        {
+            bool in = false;
+            for(VideoInfo* info : *allList)
+            {
+                if(QUrl(file) == info->getUrl())
+                {
+                    in = true;
+                    break;
+                }
+            }
+            if(in == true)
+            {
+                QMessageBox::information(this, "打开失败", "文件已存在！");
+            }
+            else
+            {
+                VideoInfo *video = new VideoInfo(QUrl(file));
+                allList->push_back(video);
+            }
         }
     }
-    filterList = allList;
+}
+
+void AlbumWidget::getResults(QStringList infos)
+{
+    filterList->clear();
+    for(VideoInfo *v : *allList)
+    {
+        if(v->matched(infos) == true)
+        {
+            filterList->push_back(v);
+        }
+    }
+    showResults();
+}
+
+void AlbumWidget::videoButtonClicked(VideoInfo *video)
+{
+    oneVideo->clear();
+    oneVideo->push_back(video);
+    emit videoClicked(oneVideo);
 }

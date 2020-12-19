@@ -23,11 +23,14 @@ ControlBar::~ControlBar()
 
 }
 
-void ControlBar::setMediaList(QVector<VideoInfo> *list)
+void ControlBar::setMediaList(QVector<VideoInfo*> *list)
 {
     currentMedia = 0;
     mediaList = list;
-    emit mediaChanged(mediaList->at(currentMedia).getUrl());
+    emit mediaChanged(mediaList->at(currentMedia)->getUrl());
+    emit shouldPlay();
+    isPlaying = true;
+    playOrPauseButton->setIcon(icons->find("pause").value());
 }
 
 void ControlBar::setButton(QPushButton *button, QString name)
@@ -47,9 +50,9 @@ void ControlBar::addItems()
     backwardButton = new QPushButton();
     setButton(backwardButton, "backward");
 
-    isPlaying = false;
+    isPlaying = true;
     playOrPauseButton = new QPushButton();
-    setButton(playOrPauseButton, "play");
+    setButton(playOrPauseButton, "pause");
 
     forwardButton = new QPushButton();
     setButton(forwardButton, "forward");
@@ -115,12 +118,23 @@ void ControlBar::playFinishedAction()
     {
         nextMedia = rand() % mediaList->size();
     }
-    QUrl url = mediaList->at(nextMedia).getUrl();
+    QUrl url = mediaList->at(nextMedia)->getUrl();
     emit mediaChanged(url);
     emit shouldPlay();
     isPlaying = true;
     playOrPauseButton->setIcon(icons->find("pause").value());
     currentMedia = nextMedia;
+}
+
+void ControlBar::listButtonClickedSlot(int index)
+{
+    currentMedia = index;
+
+    QUrl url = mediaList->at(currentMedia)->getUrl();
+    emit mediaChanged(url);
+    emit shouldPlay();
+    isPlaying = true;
+    playOrPauseButton->setIcon(icons->find("pause").value());
 }
 
 void ControlBar::menuButtonClicked()
@@ -165,7 +179,7 @@ void ControlBar::backwardButtonClicked()
     {
         nextMedia = rand() % mediaList->size();
     }
-    QUrl url = mediaList->at(nextMedia).getUrl();
+    QUrl url = mediaList->at(nextMedia)->getUrl();
     emit mediaChanged(url);
     emit shouldPlay();
     isPlaying = true;
@@ -184,7 +198,7 @@ void ControlBar::forwardButtonClickede()
     {
         nextMedia = rand() % mediaList->size();
     }
-    QUrl url = mediaList->at(nextMedia).getUrl();
+    QUrl url = mediaList->at(nextMedia)->getUrl();
     emit mediaChanged(url);
     emit shouldPlay();
     isPlaying = true;
@@ -268,7 +282,7 @@ void ControlBar::listButtonClicked()
 {
     if(isHiddenList == true)
     {
-        emit displayList();
+        emit showList();
         isHiddenList = false;
     }
     else
