@@ -2,7 +2,7 @@
 #define THE_PLAYER_H
 
 #include "control_bar.h"
-#include "list_widget.h"
+#include "list_area.h"
 #include "player_widget.h"
 
 #include <QVBoxLayout>
@@ -26,7 +26,7 @@ private:
 
     PlayerWidget *playerWidget;
     ControlBar *controlBar;
-    TheListWidget *listWidget;
+    TheListArea *listWidget;
 
     void addConnect();
 

@@ -6,7 +6,7 @@ TheMenu::TheMenu(QMap<QString, QIcon> *icons, QWidget *parent) : QWidget(parent)
     setLayout(layout);
 
     filter = new FilterWidget(icons);
-    album = new AlbumWidget();
+    album = new AlbumArea();
     menuBar = new MenuBar(icons);
     infoBar = new InfoBar(icons);
 

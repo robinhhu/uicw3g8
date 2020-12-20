@@ -3,8 +3,10 @@
 
 #include "video_info.h"
 
+#include <QLabel>
 #include <QPushButton>
 #include <QUrl>
+#include <QVBoxLayout>
 
 
 
@@ -17,7 +19,11 @@ public:
     ~AlbumButton();
 
 private:
+    QVBoxLayout *layout;
     VideoInfo *video;
+
+    QLabel *pic;
+    QLabel *name;
 
 private slots:
     void isClicked();

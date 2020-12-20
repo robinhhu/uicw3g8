@@ -1,7 +1,7 @@
 #ifndef THE_MENU_H
 #define THE_MENU_H
 
-#include "album_widget.h"
+#include "album_area.h"
 #include "filter_widget.h"
 #include "info_bar.h"
 #include "menu_bar.h"
@@ -22,7 +22,7 @@ private:
     QVBoxLayout *layout;
 
     FilterWidget *filter;
-    AlbumWidget *album;
+    AlbumArea *album;
     MenuBar *menuBar;
     InfoBar *infoBar;
 

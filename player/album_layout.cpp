@@ -5,7 +5,8 @@
 
 AlbumLayout::AlbumLayout() : QLayout()
 {
-
+    sizeHintWidth = 640;
+    sizeHintHeight = 480;
 }
 
 AlbumLayout::~AlbumLayout()
@@ -27,18 +28,22 @@ void AlbumLayout::setGeometry(const QRect &r)
         try {
             QPushButton *button = static_cast<QPushButton *>(o->widget());
 
-            int rowNum = (r.width() - margins.left() - margins.right() + space) / (button->width() + space);
-            int rowSpace = (r.width() - rowNum * button->width()) / (rowNum + 1);
-
             if (button == NULL)
             {
                 qDebug() << "warning, unknown widget class in layout" << endl;
             }
             else
             {
+                int rowNum = (r.width() - margins.left() - margins.right() + space) / (button->width() + space);
+                int rowSpace = (r.width() - rowNum * button->width()) / (rowNum + 1);
+
                 int xLoc = r.x() + (i % rowNum) * (button->width() + rowSpace) + rowSpace;
                 int yLoc = r.y() + (i / rowNum) * (button->height() + space) + margins.top();
                 button->setGeometry(xLoc, yLoc, button->width(), button->height());
+
+                sizeHintWidth = rowSpace + rowNum * (button->width() + rowSpace);
+                sizeHintHeight = margins.top() + margins.bottom() + ((count() / rowNum) + 1) * (button->height() + space) - space;
+                emit widgetSizeHint(QSize(sizeHintWidth, sizeHintHeight));
             }
         }
         catch (bad_cast) {
@@ -70,7 +75,5 @@ void AlbumLayout::addItem(QLayoutItem *item)
 
 QSize AlbumLayout::sizeHint() const
 {
-    return QSize(640, 480);
+    return QSize(sizeHintWidth, sizeHintHeight);
 }
-
-

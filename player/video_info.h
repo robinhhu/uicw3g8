@@ -14,7 +14,7 @@ public:
 
     QUrl getUrl() const;
     QString getName() const;
-    QIcon getIcon() const;
+    QPixmap getPic() const;
     QSet<QString> getLabels() const;
 
     bool matched(QStringList infos);
@@ -24,7 +24,7 @@ public:
 private:
     QUrl url;
     QString name;
-    QIcon icon;
+    QPixmap pic;
     QSet<QString> labels;
 };
 

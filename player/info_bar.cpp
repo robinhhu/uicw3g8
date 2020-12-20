@@ -9,30 +9,31 @@ InfoBar::InfoBar(QMap<QString, QIcon>* icons, QWidget *parent) : QWidget(parent)
     setFixedHeight(128);
 
     layout = new QHBoxLayout();
+    layout->setSpacing(16);
     layout->setContentsMargins(64, 0, 64, 0);
     setLayout(layout);
 
     backButton = new QPushButton();
     setButton(backButton, "backtomenu");
 
-//    layout->addStretch();
+    layout->addStretch();
 
     c1 = new QCheckBox();
-    setCheckBox(c1, "c1");
+    setCheckBox(c1, "hiking");
     c2 = new QCheckBox();
-    setCheckBox(c2, "c2");
+    setCheckBox(c2, "cycling");
     c3 = new QCheckBox();
-    setCheckBox(c3, "c3");
+    setCheckBox(c3, "skiing");
 
     inputLabels = new QLineEdit();
-    inputLabels->setFixedSize(256, 32);
+    inputLabels->setFixedHeight(32);
     inputLabels->setMaxLength(128);
     layout->addWidget(inputLabels);
 
     enterButton = new QPushButton();
-    setButton(enterButton, "bright");
+    setButton(enterButton, "add");
 
-//    layout->addStretch();
+    layout->addStretch();
 
     playButton = new QPushButton();
     setButton(playButton, "play");
@@ -70,7 +71,7 @@ void InfoBar::setButton(QPushButton *button, QString name)
 
 void InfoBar::setInputPlaceHolder(QVector<VideoInfo*>* video)
 {
-    QString ph = "输入或勾选文件：" + video->at(0)->getName() + "的标签";
+    QString ph = "Enter/select the label of：" + video->at(0)->getName();
     inputLabels->setPlaceholderText(ph);
 }
 

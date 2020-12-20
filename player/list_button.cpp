@@ -1,12 +1,36 @@
 #include "list_button.h"
 
-ListButton::ListButton(int index, QString name, QIcon icon) : QPushButton(name)
+ListButton::ListButton(int index, QString sName, QPixmap pMap)
 {
-    videoIndex = index;
+    int h = 64;
+    setFixedSize(256, h);
 
-    setIconSize(QSize(128, 64));
-    setIcon(icon);
-    setFixedSize(256, 100);
+    layout = new QHBoxLayout();
+    layout->setAlignment(Qt::AlignLeft);
+    layout->setMargin(0);
+    layout->setSpacing(16);
+    setLayout(layout);
+
+    if(pMap.isNull() == false)
+    {
+        pic = new QLabel();
+        if(pMap.width() > pMap.height())
+        {
+            h = h * pMap.width() / pMap.height();
+        }
+        h -= 4;
+        pic->setPixmap(pMap.scaled(QSize(h, h), Qt::KeepAspectRatio));
+        layout->addWidget(pic);
+    }
+
+    name = new QLabel(sName);
+    layout->addWidget(name);
+    if(pMap.isNull() == true)
+    {
+        name->setText("  " + sName);
+    }
+
+    videoIndex = index;
 
     connect(this, SIGNAL(clicked()), this, SLOT(isClicked()));
 }

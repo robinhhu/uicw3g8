@@ -7,6 +7,8 @@
 using namespace std;
 
 class AlbumLayout : public QLayout {
+Q_OBJECT
+
 public:
     AlbumLayout();
     ~AlbumLayout();
@@ -22,6 +24,12 @@ public:
 
 private:
     QList<QLayoutItem*> list_;
+
+    int sizeHintWidth;
+    int sizeHintHeight;
+
+signals:
+    void widgetSizeHint(QSize size);
 };
 
 #endif // ALBUM_LAYOUT_H

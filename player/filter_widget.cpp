@@ -13,9 +13,9 @@ FilterWidget::FilterWidget(QMap<QString, QIcon>* icons, QWidget *parent) : QWidg
     setFixedHeight(64);
 
     filter = new QComboBox();
-    filter->setFixedSize(64, 32);
+    filter->setFixedSize(128, 32);
     QStringList filterText;
-    filterText << "全部" << "户外";
+    filterText << "All" << "hiking" << "cycling" << "skiing";
     filter->addItems(filterText);
     layout->addWidget(filter);
 
@@ -23,7 +23,7 @@ FilterWidget::FilterWidget(QMap<QString, QIcon>* icons, QWidget *parent) : QWidg
     input->setFixedHeight(32);
     input->setMinimumWidth(512);
     input->setMaxLength(128);
-    input->setPlaceholderText("输入文件名或标签");
+    input->setPlaceholderText("Search by name or label");
     layout->addWidget(input);
 
     searchButton = new QPushButton();
@@ -51,7 +51,7 @@ void FilterWidget::defaultSearch()
 void FilterWidget::enterClicked()
 {
     QStringList infos;
-    if(filter->currentText() != "全部")
+    if(filter->currentText() != "All")
     {
         infos.append(filter->currentText());
     }

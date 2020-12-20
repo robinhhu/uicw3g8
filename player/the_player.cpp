@@ -8,12 +8,13 @@ ThePlayer::ThePlayer(QMap<QString, QIcon> *icons, QWidget *parent) : QWidget(par
 
     playerAndListLayout = new QHBoxLayout();
     playerAndListLayout->setMargin(0);
+    playerAndListLayout->setSpacing(0);
     playerAndListWidget = new QWidget();
     playerAndListWidget->setLayout(playerAndListLayout);
 
     playerWidget = new PlayerWidget();
     controlBar = new ControlBar(icons);
-    listWidget = new TheListWidget();
+    listWidget = new TheListArea();
 
     playerAndListLayout->addWidget(playerWidget);
     playerAndListLayout->addWidget(listWidget);

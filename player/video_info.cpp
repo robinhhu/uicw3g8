@@ -8,7 +8,7 @@ VideoInfo::VideoInfo(QUrl url)
     QFileInfo fileInfo(url.toString());
     this->url = url;
     name = fileInfo.fileName();
-    icon = QIcon(fileInfo.path() + "/" + fileInfo.baseName() + ".png");
+    pic = QPixmap(fileInfo.path() + "/" + fileInfo.baseName() + ".png");
     labels = QSet<QString>();
     labels.insert(name);
 }
@@ -26,9 +26,9 @@ QString VideoInfo::getName() const
     return name;
 }
 
-QIcon VideoInfo::getIcon() const
+QPixmap VideoInfo::getPic() const
 {
-    return icon;
+    return pic;
 }
 
 QSet<QString> VideoInfo::getLabels() const

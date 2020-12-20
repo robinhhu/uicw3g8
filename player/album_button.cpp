@@ -1,11 +1,29 @@
 #include "album_button.h"
 
-AlbumButton::AlbumButton(VideoInfo *video) : QPushButton(video->getName())
+AlbumButton::AlbumButton(VideoInfo *video)
 {
+    setFixedSize(256, 200);
+
+    layout = new QVBoxLayout();
+    layout->setAlignment(Qt::AlignHCenter);
+    layout->setMargin(0);
+    layout->setSpacing(16);
+    setLayout(layout);
+
+    QPixmap pMap = video->getPic();
+    if(pMap.isNull() == false)
+    {
+        pic = new QLabel();
+        pic->setPixmap(pMap.scaled(QSize(252, 252), Qt::KeepAspectRatio));
+        layout->addWidget(pic);
+    }
+
+
+    name = new QLabel(video->getName());
+    name->setAlignment(Qt::AlignCenter);
+    layout->addWidget(name);
+
     this->video = video;
-    setIconSize(QSize(128, 64));
-    setIcon(video->getIcon());
-    setFixedSize(256, 100);
 
     connect(this, SIGNAL(clicked()), this, SLOT(isClicked()));
 }

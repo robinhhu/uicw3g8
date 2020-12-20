@@ -16,14 +16,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    album_area.cpp \
     album_button.cpp \
     album_layout.cpp \
-    album_widget.cpp \
     control_bar.cpp \
     filter_widget.cpp \
     info_bar.cpp \
+    list_area.cpp \
     list_button.cpp \
-    list_widget.cpp \
     main.cpp \
     menu_bar.cpp \
     player_widget.cpp \
@@ -33,14 +33,14 @@ SOURCES += \
     window.cpp
 
 HEADERS += \
+    album_area.h \
     album_button.h \
     album_layout.h \
-    album_widget.h \
     control_bar.h \
     filter_widget.h \
     info_bar.h \
+    list_area.h \
     list_button.h \
-    list_widget.h \
     menu_bar.h \
     player_widget.h \
     the_menu.h \

@@ -50,7 +50,7 @@ void MenuBar::addConnect()
 
 void MenuBar::uploadButtonClicked()
 {
-    QStringList files = QFileDialog::getOpenFileNames(this, "打开视频", "./", "*.wmv");
+    QStringList files = QFileDialog::getOpenFileNames(this, "Open Videos", "./", "*.wmv");
     if(files.length() > 0)
     {
         emit upload(files);
